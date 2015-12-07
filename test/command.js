@@ -15,7 +15,11 @@ describe("command", () => {
 			permission: 0
 		})
 		.then(res => {
-			assert.equal("53", res);
+			try{
+				assert.equal("53", res);
+			}catch(e){
+				done(e);
+			}
 
 			done();
 		}, err => {
@@ -25,9 +29,13 @@ describe("command", () => {
 	it("#call.exception command not found", (done) => {
 		command.call("53")
 		.then(res => {
-
+			done(res);
 		}, err => {
-			assert.equal("53: command not found", err);
+			try{
+				assert.equal("53: command not found", err);
+			} catch(e){
+				done(e);
+			}
 
 			done();
 		});
@@ -37,9 +45,13 @@ describe("command", () => {
 			permission: -1
 		})
 		.then(res => {
-			
+			done(res);
 		}, err => {
-			assert.equal("No permission", err);
+			try{
+				assert.equal("No permission", err);
+			} catch(e){
+				done(e);
+			}
 
 			done();
 		});

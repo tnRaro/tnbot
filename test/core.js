@@ -12,8 +12,12 @@ describe("core", () => {
 	it("#input", (done) => {
 		core.input("echo 53")
 		.then(res => {
-			assert.equal("53", res);
-			
+			try{
+				assert.equal("53", res);
+			} catch(e) {
+				done(e);
+			}
+
 			done();
 		}, err => {
 			done(err);

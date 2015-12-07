@@ -15,7 +15,7 @@ export function call(command, profile){
 	let p = plugin.get(cmd.name);
 	if(p){
 		// TODO: exception profile is null
-		if(profile && (profile.permission || 0) >= p.permission){
+		if((profile && profile.permission || 0) >= p.permission){
 			return new Promise((fulfill, reject) => {
 				let api = {};
 
