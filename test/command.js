@@ -11,23 +11,37 @@ plugin.register(echo);
 
 describe("command", () => {
 	it("#call", (done) => {
-		command.call("echo 53")
-			.then(res => {
-				assert.equal("53", res);
+		command.call("echo 53", {
+			permission: 0
+		})
+		.then(res => {
+			assert.equal("53", res);
 
-				done();
-			}, err => {
-				done(err);
-			});
+			done();
+		}, err => {
+			done(err);
+		});
 	});
 	it("#call.exception command not found", (done) => {
 		command.call("53")
-			.then(res => {
+		.then(res => {
 
-			}, err => {
-				assert.equal("53: command not found", err);
+		}, err => {
+			assert.equal("53: command not found", err);
 
-				done();
-			});
+			done();
+		});
+	});
+	it("#call.exception No permission", (done) => {
+		command.call("echo", {
+			permission: -1
+		})
+		.then(res => {
+			
+		}, err => {
+			assert.equal("No permission", err);
+
+			done();
+		});
 	});
 });
