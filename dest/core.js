@@ -27,8 +27,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function input(cmd) {
-	return command.call(cmd);
+function input(cmd, profile) {
+	return command.call(cmd, profile);
 }
 
 function addPluginDirectory(dirname) {

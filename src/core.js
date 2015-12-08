@@ -4,8 +4,8 @@ import glob from "glob";
 import * as plugin from "./plugin";
 import * as command from "./command";
 
-export function input(cmd){
-	return command.call(cmd);
+export function input(cmd, profile){
+	return command.call(cmd, profile);
 }
 
 export function addPluginDirectory(dirname){

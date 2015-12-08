@@ -23,4 +23,16 @@ describe("core", () => {
 			done(err);
 		});
 	});
+	it("usage", () => {
+		const tnbot = core;
+
+		tnbot.addPluginDirectory("path/to/plugins");
+
+		tnbot.input("echo hello!", { permission: 0 })
+		.then(res => {
+			console.log(res); // hello!
+		}, err => {
+			console.error(err);
+		});
+	});
 });
