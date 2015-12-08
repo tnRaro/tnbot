@@ -1,10 +1,14 @@
 import * as plugin from "./plugin";
 import parser from "./parser";
 
+import project from "../package.json";
+
 let originalApi = {
 	bot: {
-		name: "tnbot",
-		version: "0.0.1"
+		name: project.name,
+		version: project.version,
+		description: project.description,
+		author: project.author
 	}
 };
 

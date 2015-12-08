@@ -49,4 +49,4 @@ function removePluginDirectory(dirname) {
 	});
 }
 
-addPluginDirectory("plugins/");
+addPluginDirectory(__dirname + "/../plugins/");
