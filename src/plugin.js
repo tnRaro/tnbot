@@ -1,4 +1,5 @@
 let list = {};
+let alias = {};
 
 const propMap = {
 	name: "string",
@@ -32,7 +33,12 @@ export function register(plugin){
 	if(check(plugin)){
 		list[plugin.name] = Object.assign({}, plugin);
 
-		// TODO: exception
+		if(plugin.alias){
+			Array.from(plugin.alias).forEach(a => {
+				alias[a] = plugin.name;
+			});
+		}
+
 		plugin.onCreate();
 	} else {
 		throw "not enough properties,";
@@ -45,7 +51,7 @@ export function exist(name){
 
 export function get(name){
 	// TODO: exception
-	return list[name];
+	return list[name] || list[alias[name]];
 }
 
 
@@ -53,6 +59,12 @@ export function deregister(name){
 	if(list[name]){
 		// TODO: exception
 		list[name].onDestroy();
+
+		if(list[name].alias){
+			Array.from(list[name].alias).forEach(a => {
+				delete alias[a];
+			});
+		}
 
 		delete list[name];
 	} else {

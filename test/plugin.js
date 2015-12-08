@@ -16,6 +16,10 @@ describe("plugin", () => {
 	it("#get", () => {
 		assert.deepEqual(echo, plugin.get("echo"));
 	});
+	it("#get.alias", () => {
+		assert.deepEqual(echo, plugin.get("메아리"));
+		assert.deepEqual(echo, plugin.get("반사"));
+	});
 	it("#deregister", () => {
 		plugin.deregister("echo");
 	});

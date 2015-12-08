@@ -11,6 +11,7 @@ exports.deregister = deregister;
 function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
 var list = {};
+var alias = {};
 
 var propMap = {
 	name: "string",
@@ -44,7 +45,12 @@ function register(plugin) {
 	if (check(plugin)) {
 		list[plugin.name] = Object.assign({}, plugin);
 
-		// TODO: exception
+		if (plugin.alias) {
+			Array.from(plugin.alias).forEach(function (a) {
+				alias[a] = plugin.name;
+			});
+		}
+
 		plugin.onCreate();
 	} else {
 		throw "not enough properties,";
@@ -57,13 +63,19 @@ function exist(name) {
 
 function get(name) {
 	// TODO: exception
-	return list[name];
+	return list[name] || list[alias[name]];
 }
 
 function deregister(name) {
 	if (list[name]) {
 		// TODO: exception
 		list[name].onDestroy();
+
+		if (list[name].alias) {
+			Array.from(list[name].alias).forEach(function (a) {
+				delete alias[a];
+			});
+		}
 
 		delete list[name];
 	} else {
